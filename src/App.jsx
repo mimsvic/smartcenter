@@ -97,13 +97,23 @@ export default function App() {
         </div>
 
          </div>
+        <div className="flex md:hidden w-full justify-center mt-8">
+          <img
+            src="/qhuntpc.png"
+            alt="Mobile Mockup"
+            className="w-[110%] max-w-xs object-contain"
+          />
+        </div>
+
         <div className="hidden md:flex w-full md:w-1/2 justify-end items-center ml-10">
           <img
             src="/qhuntpc.png"
-            alt="Laptop"
+            alt="Laptop Mockup"
             className="w-[110%] md:scale-150 object-contain"
           />
         </div>
+        
+
       </div>
      
 
@@ -120,24 +130,33 @@ export default function App() {
           
         </p>
         <div className="max-w-6xl mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center lg:items-start lg:space-x-6">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
+          {/* Imagem Otimizada */}
+          <div className="flex-1 w-full lg:w-1/2">
             <img
-              src="/historia.png"
-              alt="Ilustração do QHunt"
-              className="w-full max-w-full lg:w-2/3 rounded-lg object-contain"
+              src="/videogame3.png"
+              alt="Ilustração do Jogo QHunt"
+              className="w-full max-w-md mx-auto lg:max-w-full rounded-lg object-contain"
             />
-            <p className="text-base text-gray-900 dark:text-white text-justify mt-4 lg:mt-0 lg:w-1/3">
+          </div>
+
+          {/* Parágrafo Otimizado */}
+          <div className="flex-1 w-full lg:w-1/2">
+            <p className="text-lg text-gray-800 dark:text-gray-200 text-left">
               No primeiro semestre, durante o Desafio da Qualidade, desenvolvemos o QHunt e o entregamos em apenas um mês. Todos os personagens e itens foram criados manualmente, junto com uma trilha sonora original, resultando em um jogo único, criativo e imersivo.
             </p>
+            <div className="flex-1 w-full lg:w-1/2">
+            <img
+              src="/controle.png"
+              alt="Ilustração do Jogo QHunt"
+              className="w-[50%] max-w-md mx-auto lg:max-w-full rounded-lg object-contain"
+            />
+          </div>
+
           </div>
         </div>
-
-
-
-
-
       </div>
-
+      </div>
       {/* Seção Time */}
       <div
         id="time"
