@@ -119,7 +119,7 @@ export default function App() {
 
       {/* Seção Funcionalidades - Sempre visível */}
       <div
-        id="funcionalidades"
+        id="historia"
         className="flex flex-col items-center bg-white dark:bg-black py-12 mb-16"
       >
         <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center sm:text-3xl">
