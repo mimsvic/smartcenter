@@ -1,187 +1,255 @@
-import React, { useEffect } from 'react';
-import { RxSwitch } from 'react-icons/rx';
-import { useTheme } from './contexts/ContextProvider';
+import React, { useState } from 'react';
+
+// Componente para o ícone de localização
+const LocationIcon = (props) => (
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        width="48" 
+        height="48" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor" 
+        strokeWidth="1.5" 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+        {...props}
+    >
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+        <line x1="12" y1="7" x2="12" y2="13"></line>
+        <line x1="9" y1="10" x2="15" y2="10"></line>
+    </svg>
+);
+
+// Componente para o ícone de tradução
+const TranslateIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="m5 8 6 6" />
+    <path d="m4 14 6-6 2-3" />
+    <path d="M2 5h12" />
+    <path d="M7 2v3" />
+    <path d="m22 22-5-10-5 10" />
+    <path d="M14 18h6" />
+  </svg>
+);
+
+
+// Objeto com os textos para tradução
+const translations = {
+  en: {
+    overviewTitle: "OVERVIEW",
+    overviewText1: "Despite the growth of clean energy sources, most energy still comes from polluting sources, while global demand continues to rise.",
+    overviewText2: "In this scenario, ",
+    overviewText3: "technologies that harness human movement",
+    overviewText4: ", such as Power Walk, emerge as a sustainable and promising alternative.",
+    feature1: "Applicable in high-traffic areas",
+    feature2: "Use of urban space",
+    feature3: "Clean Energy Generation",
+    solutionTitle: "SOLUTION",
+    solutionText: "Power Walk transforms previously underutilized urban spaces into clean energy sources. The technology harnesses everyday movements, such as walking, to generate electricity, reducing dependence on polluting sources and contributing to environmental preservation.",
+    developmentTitle: "Development",
+    teamTitle: "TEAM"
+  },
+  pt: {
+    overviewTitle: "VISÃO GERAL",
+    overviewText1: "Apesar do crescimento das fontes de energia limpa, a maior parte da energia ainda provém de fontes poluentes, enquanto a demanda global continua a aumentar.",
+    overviewText2: "Nesse cenário, ",
+    overviewText3: "tecnologias que aproveitam o movimento humano",
+    overviewText4: ", como a Power Walk, surgem como uma alternativa sustentável e promissora.",
+    feature1: "Aplicável em áreas de grande circulação",
+    feature2: "Aproveitamento do espaço urbano",
+    feature3: "Geração de Energia Limpa",
+    solutionTitle: "SOLUÇÃO",
+    solutionText: "A Power Walk transforma espaços urbanos antes subutilizados em fontes de energia limpa. A tecnologia aproveita movimentos cotidianos, como o caminhar, para gerar eletricidade, reduzindo a dependência de fontes poluentes e contribuindo para a preservação ambiental.",
+    developmentTitle: "Desenvolvimento",
+    teamTitle: "EQUIPE"
+  }
+};
+
 
 export default function App() {
-  const { theme, setTheme } = useTheme();
+  // Estado para controlar o idioma atual
+  const [language, setLanguage] = useState('en');
 
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+  // Função para alternar o idioma
+  const toggleLanguage = () => {
+    setLanguage(prevLanguage => (prevLanguage === 'en' ? 'pt' : 'en'));
+  };
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
       const headerHeight = document.querySelector('header')?.offsetHeight || 0;
-      const extraOffset = id === 'Historia' ? -60 : 10; 
+      const extraOffset = id === 'Historia' ? -60 : 10;
 
-      const offset = element.offsetTop - (window.innerHeight / 2) + (element.offsetHeight / 2) - headerHeight / 2 + extraOffset;
+      const offset =
+        element.offsetTop -
+        window.innerHeight / 2 +
+        element.offsetHeight / 2 -
+        headerHeight / 2 +
+        extraOffset;
 
       window.scrollTo({ top: offset, behavior: 'smooth' });
-    } else {
-      // "      console.warn(`Elemento com o ID "${id}" não encontrado.`);"
     }
   };
 
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
+  // Seleciona os textos com base no idioma atual
+  const t = translations[language];
 
   return (
-    <div className="bg-white dark:bg-black text-gray-900 dark:text-white font-poppins min-h-screen overflow-x-hidden">
+    <div className="bg-[#00242D] text-white font-poppins min-h-screen overflow-x-hidden">
       {/* Cabeçalho */}
-      <header className="w-full py-4 fixed top-0 left-0 bg-white dark:bg-black z-50 shadow-none">
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-6">
-          <img
-            src={theme === 'dark' ? '/qhunt.png' : '/qhunt.png'}
-            alt="Logo"
-            className="h-12"
-          />
-          <nav className="hidden md:flex space-x-6">
-            <a
-              href="#historia"
-              className="hover:text-green-600"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection('historia');
-              }}
-            >
-              História 
-            </a>
-            <a
-              href="#time"
-              className="hover:text-green-600"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection('time');
-              }}
-            >
-              Time
-            </a>
-
-          </nav>
-          <button type="button" onClick={toggleTheme} className="scale-x-100 dark:-scale-x-100">
-            <RxSwitch className="h-8 w-8" />
+      <header className="relative w-full py-4 fixed top-0 left-0 bg-[#00242D] z-50 shadow-none">
+        <img
+            src="/vector2.png"
+            alt="Vetor decorativo de fundo"
+            className="absolute top-0 left-0 w-60 md:w-[400px] lg:w-[500px] max-h-[90vh] object-contain z-0 opacity-50"
+        />
+        <img
+          src="/efeito.png"
+          alt="Decorative background glow"
+          className="absolute top-0 left-0 w-[500px] h-auto object-contain opacity-40 z-0"
+        />
+        <img
+            src="/mockup.png"
+            alt="Mockup do dispositivo"
+            className="absolute top-16 left-0 w-48 md:top-24 md:left-4 md:w-64 object-contain z-0"
+        />
+        <img
+            src="/logo.png"
+            alt="Logo Power Walk"
+            className="absolute top-10 left-1/2 -translate-x-1/2 w-48 max-w-[200px] md:top-16 md:max-w-[300px] object-contain z-0"
+        />
+        <div className="max-w-7xl mx-auto flex items-center justify-end px-6 relative z-10">
+           {/* Botão de Tradução */}
+          <button 
+            onClick={toggleLanguage} 
+            className="bg-[#2AE8D9]/20 border border-[#2AE8D9] text-white font-semibold p-3 rounded-lg hover:bg-[#2AE8D9]/40 transition-colors duration-300 flex items-center justify-center"
+          >
+            <TranslateIcon className="h-5 w-5" />
           </button>
+
         </div>
       </header>
 
+
       {/* Hero Section */}
-      <div className="flex flex-col md:flex-row items-center justify-start h-auto md:h-screen max-w-7xl mx-auto px-8 pt-20 md:pt-0 md:px-8 md:pt-10">
-        <div className="w-full md:w-1/2 text-center md:text-left">
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold leading-snug mb-6 text-center md:text-left">
-          Intuitivo na jogabilidade, pesado na qualidade.
-          </h1>
-
-          <p className="mt-6 text-lg md:text-2xl mb-8">
-            Conheça o  <span className="text-green-600 font-semibold">QHUNT</span> e tenha sempre a{' '}
-            <span className="text-yellow-500 font-semibold">qualidade</span> que você precisa.
-          </p>
-          <div className="flex flex-col items-center space-y-4">
-          <div className="flex space-x-6">
-            <img
-              src="/dona.png"
-              alt="Personagem Dona"
-              className="w-24 h-auto object-contain"
-            />
-            <img
-              src="/croda.png"
-              alt="Personagem Croda"
-              className="w-20 h-auto object-contain"
-            />
-          </div>
-          <p className="text-center text-lg font-semibold text-gray-900 dark:text-white">
-            Personagens intuitivos e criativos
-          </p>
-        </div>
-
-         </div>
-        <div className="flex md:hidden w-full justify-center mt-8">
-          <img
-            src="/qhuntpc.png"
-            alt="Mobile Mockup"
-            className="w-[110%] max-w-xs object-contain"
-          />
-        </div>
-
-        <div className="hidden md:flex w-full md:w-1/2 justify-end items-center ml-10">
-          <img
-            src="/qhuntpc.png"
-            alt="Laptop Mockup"
-            className="w-[110%] md:scale-150 object-contain"
-          />
-        </div>
-        
-
-      </div>
-     
-
-      {/* Seção Funcionalidades - Sempre visível */}
-      <div
-        id="historia"
-        className="flex flex-col items-center bg-white dark:bg-black py-12 mb-16"
-      >
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center sm:text-3xl">
-          História QHUNT
-        </h2>
-
-        <p className="text-lg text-gray-600 dark:text-gray-300 text-center max-w-2xl mb-12">
-          
-        </p>
-        <div className="max-w-6xl mx-auto px-4">
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
-          {/* Imagem Otimizada */}
-          <div className="flex-1 w-full lg:w-1/2">
-            <img
-              src="/videogame3.png"
-              alt="Ilustração do Jogo QHunt"
-              className="w-full max-w-md mx-auto lg:max-w-full rounded-lg object-contain"
-            />
-          </div>
-
-          {/* Parágrafo Otimizado */}
-          <div className="flex-1 w-full lg:w-1/2">
-            <p className="text-lg text-gray-800 dark:text-gray-200 text-left">
-              No primeiro semestre, durante o Desafio da Qualidade, desenvolvemos o QHunt e o entregamos em apenas um mês. Todos os personagens e itens foram criados manualmente, junto com uma trilha sonora original, resultando em um jogo único, criativo e imersivo.
+      <div className="flex flex-col md:flex-row items-center justify-center min-h-screen max-w-7xl mx-auto px-8 pt-56 md:pt-0">
+        <div className="w-full md:w-1/2 text-center md:text-left mt-12 md:mt-0">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                {t.overviewTitle}
+            </h2>
+            <p className="text-lg md:text-xl mb-4 leading-relaxed">
+                {t.overviewText1}
             </p>
-            <div className="flex-1 w-full lg:w-1/2">
-            <img
-              src="/controle.png"
-              alt="Ilustração do Jogo QHunt"
-              className="w-[50%] max-w-md mx-auto lg:max-w-full rounded-lg object-contain"
-            />
-          </div>
-
-          </div>
+            <p className="text-lg md:text-xl leading-relaxed">
+                {t.overviewText2}<strong className="font-semibold text-teal-300">{t.overviewText3}</strong>{t.overviewText4}
+            </p>
         </div>
       </div>
-      </div>
-      {/* Seção Time */}
-      <div
-        id="time"
-        className="flex flex-col items-center justify-center py-8 mt-4"
-      >
-        <h3 className="text-5xl font-bold mb-4">Time</h3>
-        <p className="text-xl text-gray-600 dark:text-gray-300 text-center max-w-3xl mb-8">
 
-        </p>
-        <div className="w-full flex justify-center">
-          <img
-            src="/time.png"
-            alt="Time"
-            className="w-full max-w-3xl h-auto object-contain rounded-lg"
-          />
+      {/* Secção de Destaques */}
+      <div className="py-8 bg-[#00242D]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-row justify-center items-stretch gap-4 md:gap-6 text-center">
+                <div className="bg-gray-800/20 border border-gray-600 rounded-2xl p-4 md:p-8 w-1/4 flex flex-col items-center justify-center">
+                    <LocationIcon className="text-white mb-2 md:mb-4 h-8 w-8 md:h-12 md:w-12" />
+                    <p className="text-sm md:text-lg text-white/80">{t.feature1}</p>
+                </div>
+                <div className="bg-[#2AE8D9]/20 border border-[#2AE8D9] rounded-2xl p-4 md:p-8 w-3/8 flex flex-col justify-center">
+                    <p className="text-4xl md:text-6xl font-bold text-[#2AE8D9] mb-2">70%</p>
+                    <p className="text-sm md:text-lg text-white/80">{t.feature2}</p>
+                </div>
+                <div className="bg-[#2AE8D9]/20 border border-[#2AE8D9] rounded-2xl p-4 md:p-8 w-3/8 flex flex-col justify-center">
+                    <p className="text-4xl md:text-6xl font-bold text-[#2AE8D9] mb-2">100%</p>
+                    <p className="text-sm md:text-lg text-white/80">{t.feature3}</p>
+                </div>
+            </div>
         </div>
       </div>
+
+      {/* Nova Secção "Solution" */}
+      <div className="py-16 bg-[#00242D]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">{t.solutionTitle}</h2>
+            <p className="text-lg md:text-xl mb-4 leading-relaxed text-white/80">
+                {t.solutionText}
+            </p>
+        </div>
+      </div>
+
+      {/* Secção de Ferramentas */}
+    <div className="flex flex-col items-center py-16 bg-[#00242D]">
+      <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white text-center">
+        {t.developmentTitle}
+      </h2>
+      <img
+        src="/tools.png"
+        alt="Ferramentas utilizadas"
+        className="w-full max-w-[80%] sm:max-w-2xl md:max-w-4xl h-auto object-contain"
+      />
+    </div>
+
 
       {/* Footer Section */}
-      <div className="w-full flex" style={{ height: '5px' }}>
-        <div className="flex-1 bg-[#22b2ab]" />
-        <div className="flex-1 bg-yellow-500" />
-        <div className="flex-1 bg-[#18837e]" />
-      </div>
+      <footer className="relative bg-[#00242D] pt-10 overflow-hidden">
+        {/* Background effects */}
+        <img
+          src="/efeito.png"
+          alt="Decorative background glow"
+          className="absolute top-0 left-0 w-[500px] h-auto object-contain opacity-40 z-0"
+        />
+        <img
+          src="/vector3.png"
+          alt="Decorative background dots"
+          className="absolute top-0 right-0 h-full w-auto object-cover opacity-30 z-0"
+        />
 
+        {/* Content Wrapper */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Horizontal line */}
+          <div className="border-t border-white/20"></div>
+
+          {/* Content below the line */}
+          <div className="flex flex-col md:flex-row items-center gap-6 py-8">
+            {/* Logos */}
+            <div className="flex items-center gap-6">
+              <img
+                src="/65anos.png"
+                alt="Logo 65 anos ETS Campinas"
+                className="h-16"
+              />
+              <img
+                src="/bosch.png"
+                alt="Logo Bosch"
+                className="h-12"
+              />
+            </div>
+
+            {/* Vertical divider */}
+            <div className="w-px h-12 bg-white/30 mx-4 hidden md:block"></div>
+
+            {/* Team Info */}
+            <div className="text-center md:text-left">
+              <p className="font-bold tracking-wider text-white mb-1">{t.teamTitle}</p>
+              <p className="text-white/80">
+                Caio Santos, Cláudio Araujo, Leandro Castro, Miguel Socha
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
