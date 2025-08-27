@@ -59,7 +59,7 @@ const translations = {
     solutionTitle: "SOLUTION",
     solutionText:
       "Power Walk transforms previously underutilized urban spaces into clean energy sources. The technology harnesses everyday movements, such as walking, to generate electricity, reducing dependence on polluting sources and contributing to environmental preservation.",
-    developmentTitle: "Development",
+    developmentTitle: "DEVELOPMENT",
     teamTitle: "TEAM",
   },
   pt: {
@@ -75,7 +75,7 @@ const translations = {
     solutionTitle: "SOLUÇÃO",
     solutionText:
       "A Power Walk transforma espaços urbanos antes subutilizados em fontes de energia limpa. A tecnologia aproveita movimentos cotidianos, como o caminhar, para gerar eletricidade, reduzindo a dependência de fontes poluentes e contribuindo para a preservação ambiental.",
-    developmentTitle: "Desenvolvimento",
+    developmentTitle: "DESENVOLVIMENTO",
     teamTitle: "EQUIPE",
   },
 };
@@ -125,7 +125,7 @@ export default function App() {
         {/* Aqui você pode adicionar a imagem */}
 
         {/* Texto - direita, descendo um pouco */}
-        <div className="w-full md:w-1/2 text-left mt-48 md:mt-56">
+        <div className="w-full md:w-1/2 text-center mt-48 md:mt-56">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-white">{t.overviewTitle}</h2>
           <p className="text-base sm:text-lg md:text-xl mb-4 leading-relaxed">{t.overviewText1}</p>
           <p className="text-base sm:text-lg md:text-xl leading-relaxed">
