@@ -119,22 +119,25 @@ export default function App() {
         </div>
       </header>
 
-      {/* Hero */}
-      <div className="flex flex-col md:flex-row items-start max-w-7xl mx-auto px-4 sm:px-6 min-h-screen pt-40 md:pt-24 gap-12">
-        {/* Espaço para imagem esquerda (colada no topo) */}
-        {/* Aqui você pode adicionar a imagem */}
+{/* Hero */}
+<div className="relative flex flex-col md:flex-row items-start max-w-7xl mx-auto px-4 sm:px-6 pt-[400px] md:pt-40 gap-12">
+  {/* Texto */}
+  <div className="w-full md:w-1/2 text-center relative z-10">
+    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-white">
+      {t.overviewTitle}
+    </h2>
+    <p className="text-base sm:text-lg md:text-xl mb-4 leading-relaxed">
+      {t.overviewText1}
+    </p>
+    <p className="text-base sm:text-lg md:text-xl leading-relaxed">
+      {t.overviewText2}
+      <strong className="font-semibold text-teal-300">{t.overviewText3}</strong>
+      {t.overviewText4}
+    </p>
+  </div>
+</div>
 
-        {/* Texto - direita, descendo um pouco */}
-        <div className="w-full md:w-1/2 text-center mt-48 md:mt-56">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-white">{t.overviewTitle}</h2>
-          <p className="text-base sm:text-lg md:text-xl mb-4 leading-relaxed">{t.overviewText1}</p>
-          <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-            {t.overviewText2}
-            <strong className="font-semibold text-teal-300">{t.overviewText3}</strong>
-            {t.overviewText4}
-          </p>
-        </div>
-      </div>
+
 
       {/* Destaques */}
       <div className="py-8 bg-[#00242D]">
