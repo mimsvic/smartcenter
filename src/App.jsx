@@ -159,12 +159,6 @@ export default function App() {
 
       {/* Rodapé */}
       <footer className="relative pt-10 overflow-hidden px-4 sm:px-6">
-        <img
-          src="/decoração.png"
-          alt="Decorativo"
-          className="absolute top-0 right-0 h-full w-auto object-cover opacity-30 z-0"
-        />
-
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="border-t border-black/20"></div>
 
